@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 ## Introduction
 
@@ -20,9 +25,7 @@ system("cat activity.csv | head -6", intern = TRUE)
 ```
 
 ```
-## [1] "\"steps\",\"date\",\"interval\"" "NA,\"2012-10-01\",0"            
-## [3] "NA,\"2012-10-01\",5"             "NA,\"2012-10-01\",10"           
-## [5] "NA,\"2012-10-01\",15"            "NA,\"2012-10-01\",20"
+## character(0)
 ```
 
 We read the CSV file into a data frame, and in order to identify patterns on a
@@ -56,22 +59,34 @@ library(dplyr)
 activity_df <- read.csv( file = "activity.csv", 
                          colClasses = c("numeric", "Date", "integer"),
                          nrows = 17568 )
+```
 
+```
+## Warning in file(file, "rt"): cannot open file 'activity.csv': No such file
+## or directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
+```
+
+```r
 activity_df <- 
  activity_df %>% 
  mutate( interval_f = factor(interval), 
          day_f = factor(date - date[1] + 1) )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'activity_df' not found
+```
+
+```r
 str(activity_df)
 ```
 
 ```
-## 'data.frame':	17568 obs. of  5 variables:
-##  $ steps     : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ date      : Date, format: "2012-10-01" "2012-10-01" ...
-##  $ interval  : int  0 5 10 15 20 25 30 35 40 45 ...
-##  $ interval_f: Factor w/ 288 levels "0","5","10","15",..: 1 2 3 4 5 6 7 8 9 10 ...
-##  $ day_f     : Factor w/ 61 levels "1","2","3","4",..: 1 1 1 1 1 1 1 1 1 1 ...
+## Error in str(activity_df): object 'activity_df' not found
 ```
 
 ```r
@@ -79,22 +94,7 @@ summary(activity_df)
 ```
 
 ```
-##      steps             date               interval        interval_f   
-##  Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0   0      :   61  
-##  1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8   5      :   61  
-##  Median :  0.00   Median :2012-10-31   Median :1177.5   10     :   61  
-##  Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5   15     :   61  
-##  3rd Qu.: 12.00   3rd Qu.:2012-11-15   3rd Qu.:1766.2   20     :   61  
-##  Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0   25     :   61  
-##  NA's   :2304                                           (Other):17202  
-##      day_f      
-##  1      :  288  
-##  2      :  288  
-##  3      :  288  
-##  4      :  288  
-##  5      :  288  
-##  6      :  288  
-##  (Other):15840
+## Error in summary(activity_df): object 'activity_df' not found
 ```
 
 ## What is mean total number of steps taken per day?
@@ -108,15 +108,36 @@ per_day <-
  activity_df %>% 
  group_by( day_f ) %>% 
  summarize( steps_per_day = sum(steps, na.rm = TRUE) )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'activity_df' not found
+```
+
+```r
 per_day_steps <- per_day$steps_per_day
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'per_day' not found
+```
+
+```r
 hist( per_day_steps, col = "blue", breaks = 10, 
       main = "histogram of total steps per day" )
+```
+
+```
+## Error in hist(per_day_steps, col = "blue", breaks = 10, main = "histogram of total steps per day"): object 'per_day_steps' not found
+```
+
+```r
 rug( per_day$steps_per_day )
 ```
 
-![](PA1_template_files/figure-html/q1_q2_steps_per_day-1.png) 
+```
+## Error in as.vector(x): object 'per_day' not found
+```
 
 Then, we determine the mean and median of the total number of steps per day. 
 
@@ -126,7 +147,7 @@ print(  mean( per_day$steps_per_day )  )
 ```
 
 ```
-## [1] 9354.23
+## Error in mean(per_day$steps_per_day): object 'per_day' not found
 ```
 
 ```r
@@ -134,7 +155,7 @@ print(  median( per_day$steps_per_day )  )
 ```
 
 ```
-## [1] 10395
+## Error in median(per_day$steps_per_day): object 'per_day' not found
 ```
 
 ## What is the average daily activity pattern?
@@ -148,27 +169,45 @@ per_interval <-
  activity_df %>% 
  group_by( interval_f ) %>% 
  summarize( avg_steps_per_interval = mean(steps, na.rm = TRUE) )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'activity_df' not found
+```
+
+```r
 str(per_interval)
 ```
 
 ```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	288 obs. of  2 variables:
-##  $ interval_f            : Factor w/ 288 levels "0","5","10","15",..: 1 2 3 4 5 6 7 8 9 10 ...
-##  $ avg_steps_per_interval: num  1.717 0.3396 0.1321 0.1509 0.0755 ...
-##  - attr(*, "drop")= logi TRUE
+## Error in str(per_interval): object 'per_interval' not found
 ```
 
 ```r
 intervals <- as.integer(per_interval$interval_f)
-avg_per_interval_steps <- per_interval$avg_steps_per_interval
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'per_interval' not found
+```
+
+```r
+avg_per_interval_steps <- per_interval$avg_steps_per_interval
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'per_interval' not found
+```
+
+```r
 plot( intervals, avg_per_interval_steps, type = "l", col = "red", 
       xlab = "interval", ylab = "average number of steps",  
       main = "across-all-days average of steps per interval" )
 ```
 
-![](PA1_template_files/figure-html/q1_steps_per_interval-1.png) 
+```
+## Error in plot(intervals, avg_per_interval_steps, type = "l", col = "red", : object 'intervals' not found
+```
 
 Then, we determine the interval with the maximum across-61-days average number 
 of steps, printing the maximizing index (which is in 1-288) first and then the 
@@ -180,7 +219,7 @@ print(  which.max( avg_per_interval_steps )  )
 ```
 
 ```
-## [1] 104
+## Error in which.max(avg_per_interval_steps): object 'avg_per_interval_steps' not found
 ```
 
 ```r
@@ -188,8 +227,7 @@ print(  per_interval$interval_f[ which.max( avg_per_interval_steps ) ]  )
 ```
 
 ```
-## [1] 835
-## 288 Levels: 0 5 10 15 20 25 30 35 40 45 50 55 100 105 110 115 120 ... 2355
+## Error in print(per_interval$interval_f[which.max(avg_per_interval_steps)]): object 'per_interval' not found
 ```
 
 The maximizing interval is the 104th, out of the 288 intervals in a day, and 
@@ -205,14 +243,26 @@ below, along with the total number of such rows.
 activity_df <- 
  activity_df %>% 
  mutate( is_missing_steps = is.na(steps) )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'activity_df' not found
+```
+
+```r
 indexes_missing_steps <- which( activity_df$is_missing_steps )
+```
 
+```
+## Error in which(activity_df$is_missing_steps): object 'activity_df' not found
+```
+
+```r
 print( length(indexes_missing_steps) )
 ```
 
 ```
-## [1] 2304
+## Error in print(length(indexes_missing_steps)): object 'indexes_missing_steps' not found
 ```
 
 As confirmation, note that we already found this total number of NAs when we 
@@ -236,27 +286,18 @@ filled_activity_df <-
                          steps
                        ) 
        )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'activity_df' not found
+```
+
+```r
 summary( filled_activity_df )
 ```
 
 ```
-##      steps             date               interval        interval_f   
-##  Min.   :  0.00   Min.   :2012-10-01   Min.   :   0.0   0      :   61  
-##  1st Qu.:  0.00   1st Qu.:2012-10-16   1st Qu.: 588.8   5      :   61  
-##  Median :  0.00   Median :2012-10-31   Median :1177.5   10     :   61  
-##  Mean   : 37.38   Mean   :2012-10-31   Mean   :1177.5   15     :   61  
-##  3rd Qu.: 27.00   3rd Qu.:2012-11-15   3rd Qu.:1766.2   20     :   61  
-##  Max.   :806.00   Max.   :2012-11-30   Max.   :2355.0   25     :   61  
-##                                                         (Other):17202  
-##      day_f       is_missing_steps
-##  1      :  288   Mode :logical   
-##  2      :  288   FALSE:15264     
-##  3      :  288   TRUE :2304      
-##  4      :  288   NA's :0         
-##  5      :  288                   
-##  6      :  288                   
-##  (Other):15840
+## Error in summary(filled_activity_df): object 'filled_activity_df' not found
 ```
 
 ```r
@@ -264,28 +305,23 @@ str( filled_activity_df )
 ```
 
 ```
-## 'data.frame':	17568 obs. of  6 variables:
-##  $ steps           : num  1.717 0.3396 0.1321 0.1509 0.0755 ...
-##  $ date            : Date, format: "2012-10-01" "2012-10-01" ...
-##  $ interval        : int  0 5 10 15 20 25 30 35 40 45 ...
-##  $ interval_f      : Factor w/ 288 levels "0","5","10","15",..: 1 2 3 4 5 6 7 8 9 10 ...
-##  $ day_f           : Factor w/ 61 levels "1","2","3","4",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ is_missing_steps: logi  TRUE TRUE TRUE TRUE TRUE TRUE ...
+## Error in str(filled_activity_df): object 'filled_activity_df' not found
 ```
 
 ```r
 temp_head_df <- head( filled_activity_df[ is.na(activity_df$steps), ] )
+```
+
+```
+## Error in head(filled_activity_df[is.na(activity_df$steps), ]): object 'filled_activity_df' not found
+```
+
+```r
 temp_head_df
 ```
 
 ```
-##       steps       date interval interval_f day_f is_missing_steps
-## 1 1.7169811 2012-10-01        0          0     1             TRUE
-## 2 0.3396226 2012-10-01        5          5     1             TRUE
-## 3 0.1320755 2012-10-01       10         10     1             TRUE
-## 4 0.1509434 2012-10-01       15         15     1             TRUE
-## 5 0.0754717 2012-10-01       20         20     1             TRUE
-## 6 2.0943396 2012-10-01       25         25     1             TRUE
+## Error in eval(expr, envir, enclos): object 'temp_head_df' not found
 ```
 
 ```r
@@ -294,7 +330,7 @@ avg_per_interval_steps[ match( temp_head_df$interval_f,
 ```
 
 ```
-## [1] 1.7169811 0.3396226 0.1320755 0.1509434 0.0754717 2.0943396
+## Error in eval(expr, envir, enclos): object 'avg_per_interval_steps' not found
 ```
 
 The following is a repeat of the section "what is mean total number of steps 
@@ -309,15 +345,36 @@ filled_per_day <-
  filled_activity_df %>% 
  group_by( day_f ) %>% 
  summarize( steps_per_day = sum(steps, na.rm = TRUE) )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'filled_activity_df' not found
+```
+
+```r
 filled_per_day_steps <- filled_per_day$steps_per_day
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'filled_per_day' not found
+```
+
+```r
 hist( filled_per_day_steps, col = "magenta", breaks = 10, 
       main = "histogram of total steps per day" )
+```
+
+```
+## Error in hist(filled_per_day_steps, col = "magenta", breaks = 10, main = "histogram of total steps per day"): object 'filled_per_day_steps' not found
+```
+
+```r
 rug( filled_per_day$steps_per_day )
 ```
 
-![](PA1_template_files/figure-html/q4a_steps_per_day-1.png) 
+```
+## Error in as.vector(x): object 'filled_per_day' not found
+```
 
 Then, we determine the mean and median of the total number of steps per day. 
 
@@ -327,7 +384,7 @@ print(  mean( filled_per_day$steps_per_day )  )
 ```
 
 ```
-## [1] 10766.19
+## Error in mean(filled_per_day$steps_per_day): object 'filled_per_day' not found
 ```
 
 ```r
@@ -335,7 +392,7 @@ print(  median( filled_per_day$steps_per_day )  )
 ```
 
 ```
-## [1] 10766.19
+## Error in median(filled_per_day$steps_per_day): object 'filled_per_day' not found
 ```
 
 
@@ -358,14 +415,18 @@ filled_activity_df <-
                              levels = c("weekday", "weekend") 
                            )
        )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'filled_activity_df' not found
+```
+
+```r
 table( filled_activity_df$daytype_f )
 ```
 
 ```
-## 
-## weekday weekend 
-##   12960    4608
+## Error in table(filled_activity_df$daytype_f): object 'filled_activity_df' not found
 ```
 
 Finally, we compare the activity patterns on weekdays vs. weekends, by plotting 
@@ -377,26 +438,46 @@ per_daytype_per_interval <-
  filled_activity_df %>% 
  group_by( daytype_f, interval_f ) %>% 
  summarize( avg_per_daytype_steps_per_interval = mean(steps, na.rm = TRUE) )
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'filled_activity_df' not found
+```
+
+```r
 str(per_daytype_per_interval)
 ```
 
 ```
-## Classes 'grouped_df', 'tbl_df', 'tbl' and 'data.frame':	576 obs. of  3 variables:
-##  $ daytype_f                         : Factor w/ 2 levels "weekday","weekend": 1 1 1 1 1 1 1 1 1 1 ...
-##  $ interval_f                        : Factor w/ 288 levels "0","5","10","15",..: 1 2 3 4 5 6 7 8 9 10 ...
-##  $ avg_per_daytype_steps_per_interval: num  2.251 0.445 0.173 0.198 0.099 ...
-##  - attr(*, "vars")=List of 1
-##   ..$ : symbol daytype_f
-##  - attr(*, "drop")= logi TRUE
+## Error in str(per_daytype_per_interval): object 'per_daytype_per_interval' not found
 ```
 
 ```r
 f_day_type <- per_daytype_per_interval$daytype_f
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'per_daytype_per_interval' not found
+```
+
+```r
 intervals2 <- as.integer(per_daytype_per_interval$interval_f)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'per_daytype_per_interval' not found
+```
+
+```r
 avg_per_daytype_per_interval_steps <- 
  per_daytype_per_interval$avg_per_daytype_steps_per_interval
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'per_daytype_per_interval' not found
+```
+
+```r
 library(lattice)
 xyplot( avg_per_daytype_per_interval_steps ~ intervals2 | f_day_type, 
         panel = function(x, y, ...) { 
@@ -411,7 +492,9 @@ xyplot( avg_per_daytype_per_interval_steps ~ intervals2 | f_day_type,
       )
 ```
 
-![](PA1_template_files/figure-html/q2a_per_daytype_steps_per_interval-1.png) 
+```
+## Error in eval(expr, envir, enclos): object 'f_day_type' not found
+```
 
 We see that the 2-month average number of steps has a more distinct peak (around
 get-to-work time) for weekdays, when compared to weekends. Further, there is a
