@@ -233,7 +233,21 @@ interval identifier, ranging for each day from 0 to 2355 (e.g. &ldquo;2355&rdquo
 23 hours and 55 minutes), is converted to a factor &ldquo;interval_f&rdquo;. </p>
 
 <pre><code class="r">library(dplyr)
+</code></pre>
 
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+</code></pre>
+
+<pre><code class="r">unzip(&quot;activity.zip&quot;)
 activity_df &lt;- read.csv( file = &quot;activity.csv&quot;, 
                          colClasses = c(&quot;numeric&quot;, &quot;Date&quot;, &quot;integer&quot;),
                          nrows = 17568 )
@@ -552,22 +566,6 @@ xyplot( avg_per_daytype_per_interval_steps ~ intervals2 | f_day_type,
 get-to-work time) for weekdays, when compared to weekends. Further, there is a
 reduction in activity over the weekend (peak &gt; 200 average-number-of-steps for
 weekdays, versus ~ 150 steps for weekends).</p>
-
-<p>The plot is also saved into the &ldquo;./figure/&rdquo; directory as a PNG file.</p>
-
-<pre><code class="r">dev.copy( png, file = &quot;./figure/weekday_weekend_panelplot.png&quot; )
-</code></pre>
-
-<pre><code>## quartz_off_screen 
-##                 3
-</code></pre>
-
-<pre><code class="r">dev.off()
-</code></pre>
-
-<pre><code>## quartz_off_screen 
-##                 2
-</code></pre>
 
 </body>
 

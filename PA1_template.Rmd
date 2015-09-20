@@ -35,6 +35,7 @@ interval identifier, ranging for each day from 0 to 2355 (e.g. "2355" stands for
 ```{r load_data_add_factors, echo = TRUE }
 library(dplyr)
 
+unzip("activity.zip")
 activity_df <- read.csv( file = "activity.csv", 
                          colClasses = c("numeric", "Date", "integer"),
                          nrows = 17568 )
@@ -238,10 +239,4 @@ get-to-work time) for weekdays, when compared to weekends. Further, there is a
 reduction in activity over the weekend (peak > 200 average-number-of-steps for
 weekdays, versus ~ 150 steps for weekends).
 
-The plot is also saved into the "./figure/" directory as a PNG file.
-
-```{r q2b_save_plot}
-dev.copy( png, file = "./figure/weekday_weekend_panelplot.png" )
-dev.off()
-```
 
